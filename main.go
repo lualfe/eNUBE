@@ -137,7 +137,7 @@ func showData(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	preco, err := CountValues(start, end)
+	preco, err := SumValues(start, end)
 	if err != nil {
 		fmt.Println(err)
 	}

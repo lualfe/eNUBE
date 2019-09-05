@@ -25,23 +25,8 @@ func (data *CloudData) UploadData() (err error) {
 	return
 }
 
-//GetData puxa informações do banco de dados para montagem de listas
-func GetData(start, end time.Time) (data []CloudData, err error) {
-	rows, err := Db.Query("SELECT DISTINCT ON(nome) id, nome, inicio, fim, quantidade, unidade, preco FROM dados WHERE inicio >= $1 AND fim < $2", start, end)
-	if err != nil {
-		return
-	}
-	for rows.Next() {
-		line := CloudData{}
-		err = rows.Scan(&line.ID, &line.Nome, &line.Inicio, &line.Fim, &line.Quantidade, &line.Unidade, &line.Preco)
-		data = append(data, line)
-	}
-	rows.Close()
-	return
-}
-
-//CountValues retorna o valor total de todos os recursos utilizados
-func CountValues(start, end time.Time) (val float64, err error) {
+//SumValues retorna o valor total de todos os recursos utilizados
+func SumValues(start, end time.Time) (val float64, err error) {
 	var value float64
 	err = Db.QueryRow("SELECT SUM(preco) FROM dados WHERE inicio >= $1 AND fim < $2", start, end).Scan(&value)
 	if err != nil {
