@@ -170,6 +170,7 @@ func newRouter() *mux.Router {
 }
 
 func main() {
+	//teste
 	mux := newRouter()
 	mux.HandleFunc("/process", formUpload).Methods("POST")
 	mux.HandleFunc("/dashboard", showData).Methods("GET")
